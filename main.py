@@ -1,5 +1,10 @@
 import subprocess
 subprocess.call("adb devices",shell=True)
-subprocess.call("adb shell screencap -p /sdcard/screenshot.png",shell=True)
-subprocess.call("adb pull /sdcard/screenshot.png",shell=True)
-subprocess.call("adb shell rm /sdcard/screenshot.png",shell=True)
+import time
+import cv2
+
+method = cv2.TM_SQDIFF_NORMED
+start = time.time()
+for i in range(1):
+	subprocess.call("adb shell screencap -p | perl -pe 's/\x0D\x0A/\x0A/g' > screenshot.png",shell=True)
+print(time.time() - start)
